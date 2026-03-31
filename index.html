@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Bithday Yuna! 🖤💖</title>
+    <style>
+        /* CSS RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #000; /* Latar Belakang Hitam */
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* CONTAINER UTAMA DENGAN GAMBAR LATAR */
+        .main-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Taruh konten di bagian bawah */
+            align-items: center;
+            background-image: url('image_1.png'); /* Ganti dengan URL gambar Anda */
+            background-size: cover;
+            background-position: center;
+            z-index: 1; /* Pastikan di bawah partikel */
+            padding-bottom: 50px; /* Jarak dari bawah */
+        }
+
+        /* TEXT STYLES (Ambil dari desain gambar) */
+        h1 {
+            font-size: 1.5rem; /* Ukuran teks pesan */
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .heart-icons {
+            font-size: 1rem;
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        /* TOMBOL INTERAKTIF (Ambil dari desain gambar) */
+        .interactive-btn {
+            background-color: #1a1a1a; /* Hitam keabu-abuan */
+            color: #fff;
+            border: 2px solid #ff1493; /* Garis Ping Neon */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #ff1493;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .interactive-btn:hover {
+            background-color: #2a2a2a;
+            box-shadow: 0 0 15px #ff1493;
+        }
+
+        /* PARTIKEL TERBANG (Konfeti, Hati, Nada Musik, dll.) */
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff1493;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: dropConfetti linear forwards;
+            z-index: 10; /* Pastikan di atas gambar */
+        }
+
+        .particle.heart {
+            background-color: transparent;
+            border: 2px solid #ff1493;
+            border-radius: 50%;
+        }
+
+        .particle.note {
+            background-color: transparent;
+            border: 2px solid #fff;
+            border-radius: 50%;
+        }
+
+        @keyframes dropConfetti {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1>WISH GRANTED! <br> Happy 17th Birthday, Yuna! <span class="heart-icons">🖤💗</span></h1>
+        
+        <button class="interactive-btn">Meniup lilinnya! 🎂 <span class="heart-icons">🖤💗</span></button>
+    </div>
+
+    <div id="particle-wrapper"></div>
+
+    <script>
+        // --- Confetti & Partikel Effect ---
+        const particleWrapper = document.getElementById('particle-wrapper');
+        const colors = ['#ff1493', '#ff69b4', '#fce4ec', '#fff']; // Pink shades, white
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Pilih jenis partikel secara acak (konfeti, hati, nada musik)
+            const type = Math.random();
+            if (type < 0.3) {
+                particle.classList.add('heart');
+            } else if (type < 0.6) {
+                particle.classList.add('note');
+            }
+            
+            // Atur posisi dan warna secara acak
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.width = (Math.random() * 8 + 5) + 'px'; // 5-13px
+            particle.style.height = particle.style.width; // squareish
+            
+            // Atur durasi animasi secara acak
+            const duration = Math.random() * 3 + 2; // 2-5 seconds
+            particle.style.animationDuration = duration + 's';
+            
+            particleWrapper.appendChild(particle);
+            
+            // Hapus partikel setelah animasi selesai
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        // Generate partikel terus menerus
+        setInterval(createParticle, 100); // 10 partikel per detik
+
+        // Mulai dengan lonjakan partikel
+        for(let i=0; i<30; i++) {
+            setTimeout(createParticle, i * 50);
+        }
+
+        // --- Logika Interaktif Tombol (Opsional, untuk menambahkan interaksi) ---
+        const interactiveBtn = document.querySelector('.interactive-btn');
+        interactiveBtn.addEventListener('click', () => {
+            alert('Lilinnya sudah ditiup! Semoga semua harapan Yuna terkabul! 🖤💗');
+            // Anda bisa menambahkan logika lain di sini, seperti mengubah teks tombol, dll.
+        });
+    </script>
+</body>
+</html>
